@@ -65,3 +65,26 @@ black <file...>
 
 用于生成DeemoDIY和DemooPlayer所用的ini和txt文件，
 附带对文件的重命名工具
+
+<details>
+<summary>详细说明</summary>
+
+填入对应信息后点击**Export INI**和**Export TXT**可以在导出对应的文件到Path文本框所在位置
+
+点击**Export As Configuration**将目前填写的信息作为默认信息导出至`Configuration/InfoFileGenerator.json`
+（*最有用的就是设定谱师名.jpg*
+
+点击**Txt Settings**展开Demooplayer相关的详细的设置
+
+可以将文件夹拖入到**Path**文本框或左下角空白框，会将该文件夹作为输出路径。
+且会识别文件夹内部分文件，点击**Normalize**会按照DEEMO DIY的导入需求重命名文件
+
+可识别文件有：
+- `*.mp3` 识别为音乐或预览音频文件，若有两个mp3则较长的被认为是音乐文件，分别重命名为`Music.mp3`和`Preview.mp3`
+- `*.easy|normal|hard|extra|ultra.json` 单词首字母可以大写，识别为谱面文件，`ultra`为了只是兼容可能的旧版diy，最好没用（，重命名为`Easy|Normal|Hard|Extra.json`
+- `*.png` 识别为Cover，重命名为`Cover.png`，若没有png文件则会生成一个0kb的`Cover.png`（diy里能跑就是了
+
+如果是dnt写的谱的话，导出的谱面文件就符合这个格式，扔文件夹里可以直接重命名
+
+
+</details>
