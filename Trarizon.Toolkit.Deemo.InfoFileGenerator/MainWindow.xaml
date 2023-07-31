@@ -1,0 +1,112 @@
+﻿<Window x:Class="Trarizon.Toolkit.Deemo.InfoFileGenerator.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:viewmodels="clr-namespace:Trarizon.Toolkit.Deemo.InfoFileGenerator.ViewModels"
+		xmlns:v="clr-namespace:Trarizon.Toolkit.Deemo.InfoFileGenerator.Views"
+		d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowVM}"
+		mc:Ignorable="d"
+		Title="InfoFileGenerator"
+		AllowDrop="True"
+		SizeToContent="WidthAndHeight">
+
+	<Grid AllowDrop="True">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="400" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel>
+
+			<v:IniPropertyView x:Name="iniPropertyView"
+							   DataContext="{Binding ChartInfo.Basic}" />
+
+			<Separator Margin="4,2,4,2"
+					   Background="LightGray" />
+
+			<DockPanel Margin="4,2,4,2">
+				<TextBlock Text="Path"
+						   FontSize="16"
+						   Margin="0,0,2,0"
+						   VerticalAlignment="Center"
+						   DockPanel.Dock="Left" />
+				<TextBox Style="{StaticResource DefaultTextBox}"
+						 FontSize="16"
+						 Text="{Binding ExportPath}"
+						 AllowDrop="True"
+						 PreviewDragOver="PreviewDragOverExportFolder"
+						 PreviewDrop="PreviewDropExportFolder" />
+			</DockPanel>
+
+			<Grid Margin="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*" />
+					<ColumnDefinition Width="3*" />
+				</Grid.ColumnDefinitions>
+
+				<ListView ItemsSource="{Binding FolderFiles}"
+						  PreviewDragOver="PreviewDragOverExportFolder"
+						  PreviewDrop="PreviewDropExportFolder" />
+
+				<StackPanel Margin="4,0,0,0"
+							Grid.Column="1">
+					<Button Style="{StaticResource DefaultButton}"
+							FontSize="14"
+							Content="Export INI (DEEMO DIY)"
+							Background="AliceBlue"
+							HorizontalContentAlignment="Center"
+							Margin="0,2,0,2"
+							Command="{Binding ExportIniCommand}" />
+					<Button Style="{StaticResource DefaultButton}"
+							FontSize="14"
+							Content="Export TXT (DemooPlayer)"
+							Background="AliceBlue"
+							HorizontalContentAlignment="Center"
+							Margin="0,2,0,2"
+							Command="{Binding ExportTxtCommand}" />
+					<Button Style="{StaticResource DefaultButton}"
+							FontSize="14"
+							Content="Export As Configuration"
+							Background="AliceBlue"
+							HorizontalContentAlignment="Center"
+							Margin="0,2,0,2"
+							Command="{Binding ExportAsConfigurationCommand}" />
+					<DockPanel>
+						<ToggleButton Name="expandTgl"
+									  Content="TxtSettings"
+									  Background="AliceBlue"
+									  BorderThickness="0"
+									  Height="28"
+									  Padding="0,0,0,0"
+									  Margin="0,0,0,0"
+									  HorizontalAlignment="Right"
+									  FontSize="14"
+									  Style="{StaticResource DefaultToggleButton}"
+									  d:IsChecked="True"
+									  DockPanel.Dock="Right" />
+
+						<Button Style="{StaticResource DefaultButton}"
+								FontSize="14"
+								Content="Normalize"
+								Background="AliceBlue"
+								HorizontalContentAlignment="Center"
+								Margin="0,2,4,2"
+								Command="{Binding NormalizeFileNamesCommand}" />
+					</DockPanel>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+
+		<DockPanel Visibility="{Binding ElementName=expandTgl,Path=IsChecked,Converter={StaticResource BoolToVisibility}}"
+				   Grid.Column="1"
+				   Width="350">
+
+			<Separator Background="LightGray"
+					   DockPanel.Dock="Left" />
+			<v:TxtPropertyView DataContext="{Binding ChartInfo.DemooPlayer}"
+							   Grid.Column="1" />
+		</DockPanel>
+	</Grid>
+
+</Window>

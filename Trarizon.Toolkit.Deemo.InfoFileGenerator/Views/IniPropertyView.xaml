@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Trarizon.Toolkit.Deemo.InfoFileGenerator.Views.IniPropertyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:Trarizon.Toolkit.Deemo.InfoFileGenerator.Models"
+             d:DataContext="{d:DesignInstance Type=models:BasicChartInfo}"
+			 mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+	<StackPanel Orientation="Vertical">
+
+		<DockPanel Margin="4,4,4,2">
+			<TextBlock Text="Music"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox d:Text="Text"
+					 Text="{Binding MusicName}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock x:Name="composerTxt"
+					   Text="Composer"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24" />
+			<TextBox d:Text="Textg"
+					 Text="{Binding Composer,Mode=TwoWay}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock Text="Charter"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox Text="{Binding Charter}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock Text="Easy"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox Text="{Binding LevelEasy}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock Text="Normal"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox Text="{Binding LevelNormal}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock Text="Hard"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox Text="{Binding LevelHard}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+		<DockPanel Margin="4,2,4,2">
+			<TextBlock Text="Extra"
+					   TextAlignment="Right"
+					   Margin="4,0,4,0"
+					   FontSize="24"
+					   Width="{Binding ElementName=composerTxt,Path=ActualWidth}" />
+			<TextBox Text="{Binding LevelExtra}"
+					 Style="{StaticResource DefaultTextBox}"
+					 VerticalContentAlignment="Center"
+					 FontSize="20" />
+		</DockPanel>
+
+	</StackPanel>
+
+</UserControl>
