@@ -25,7 +25,7 @@ internal static class CLI
             foreach (var value in opt.Values) {
                 tasks.Add(Task.Run(() => Console.WriteLine(opt.Run(value))));
             }
-            Task.WhenAll(tasks).RunSynchronously();
+            Task.WhenAll(tasks).GetAwaiter().GetResult();
         }
         else {
             foreach (var value in opt.Values)
