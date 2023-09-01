@@ -5,26 +5,6 @@ using Trarizon.Toolkit.Deemo.Commands.Components.Painting;
 using Trarizon.Toolkit.Deemo.Commands.Components.Painting.Interval;
 using Trarizon.Toolkit.Deemo.Commands.Functions;
 
-//string inputstr = @"D:\Project Charts\Collection\Forest of Clock\10.json";
-//if (Chart.TryParseFromJson(File.ReadAllText(inputstr), out var chart)) {
-//    var painter = new ChartPainter(chart.Notes, new PaintingSettings {
-//        Padding = (50, 50, 50, 50),
-//        SegmentMainAreaTimeSeconds = 15,
-//        SubAreaTimes = (1f, 1f),
-//        LeftInterval = new TimeInterval(5f),
-//        RightInterval = new ComboInterval(20),
-//        SegmentsGapWidth = 50,
-//        GameVersion = Trarizon.Toolkit.Deemo.GameVersion.Deemo,
-//    });
-//    Console.WriteLine("Drawing");
-//    var surface = await painter.PaintAsync();
-//    Console.WriteLine("Drown.");
-//    using var file = File.Create(inputstr + ".png");
-//    surface.Snapshot().Encode().SaveTo(file);
-//}
-//return;
-
-
 bool verbChangable = true;
 
 if (args.Length > 0) {

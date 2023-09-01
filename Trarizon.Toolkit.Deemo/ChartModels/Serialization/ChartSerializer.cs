@@ -39,7 +39,7 @@ internal static class ChartSerializer
             return JsonConvert.SerializeObject(chart, settings);
 
         // V3Chart
-        return JsonConvert.SerializeObject(DeV3ChartAdapter.GetV3Chart(chart));
+        return JsonConvert.SerializeObject(DeV3ChartAdapter.ToDeV3Chart(chart));
     }
 
     private class ContractResolver : DefaultContractResolver
