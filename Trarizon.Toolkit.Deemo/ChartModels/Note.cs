@@ -1,62 +1,65 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Trarizon.Toolkit.Deemo.ChartModels.Serialization;
 
 namespace Trarizon.Toolkit.Deemo.ChartModels;
 [JsonObject(MemberSerialization.OptIn, IsReference = true)]
 public sealed class Note
 {
-    [Obsolete("Suspected redundant field")]
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoV2 | ChartPropertyVersion.DeemoReborn)]
-    [JsonProperty("type")]
+    [Obsolete("Suspected redundant field, use IsLink to instead")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoV2 | ChartPropertyVersions.DeemoReborn)]
+    [JsonProperty(JsonPropertyNames.Type)]
     public NoteType Type { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.All)]
-    [JsonProperty("sounds")]
-    private List<PianoSound>? _sounds;
-    public List<PianoSound> Sounds => _sounds ??= new List<PianoSound>();
+    [ChartPropertyVersion(ChartPropertyVersions.All)]
+    [JsonProperty(JsonPropertyNames.Sounds)]
+    public List<PianoSound> Sounds { get; private set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.All)]
-    [JsonProperty("pos")]
+    [ChartPropertyVersion(ChartPropertyVersions.All)]
+    [JsonProperty(JsonPropertyNames.Pos)]
     public float Position { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.All)]
-    [JsonProperty("size")]
+    [ChartPropertyVersion(ChartPropertyVersions.All)]
+    [JsonProperty(JsonPropertyNames.Size)]
     public float Size { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.All)]
-    [JsonProperty("_time")]
+    [ChartPropertyVersion(ChartPropertyVersions.All)]
+    [JsonProperty(JsonPropertyNames.UnderlineTime)]
     public float Time { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoV2 | ChartPropertyVersion.DeemoReborn | ChartPropertyVersion.DeemoII)]
-    [JsonProperty("shift")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoV2 | ChartPropertyVersions.DeemoReborn | ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Shift)]
     public float Shift { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("speed")]
-    [DefaultValue(1f)]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Speed)]
     public float Speed { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("duration")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Duration)]
     public float Duration { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("vibrate")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoReborn | ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Vibrate)]
     public bool Vibrate { get; set; }
 
-    [JsonProperty("swipe")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoIIV2)]
+    [JsonProperty(JsonPropertyNames.Swipe)]
     public bool IsSwipe { get; set; }
 
-    [JsonProperty("warningType")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoReborn | ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.WarningType)]
     public WarningType WarningType { get; set; }
 
-    [JsonProperty("eventID")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoReborn | ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.EventId)]
     [DefaultValue("")]
     public string EventId { get; set; }
 
     [Obsolete("Supsected redundant field, the value will always be same as Time")]
-    [JsonProperty("time")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoV2 | ChartPropertyVersions.DeemoReborn | ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Time)]
     public float AnotherTime { get => Time; set { } }
 
     private bool _isSlide;
@@ -103,12 +106,12 @@ public sealed class Note
 
     // All property constructor
     [JsonConstructor]
-    private Note(List<PianoSound> sounds, float position, float size, float time,
+    private Note(List<PianoSound>? sounds, float position, float size, float time,
         float speed, float duration, bool vibrate, bool isSwipe, WarningType warningType, string eventId,
         NoteType type, float anotherTime)
     {
 #pragma warning disable CS0618
-        _sounds = sounds;
+        Sounds = sounds ?? new List<PianoSound>();
         Position = position;
         Size = size;
         Time = time;

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Trarizon.Toolkit.Deemo.ChartModels.Serialization;
 
 namespace Trarizon.Toolkit.Deemo.ChartModels;
 [JsonObject(MemberSerialization.OptIn)]
@@ -7,16 +8,16 @@ public sealed class PianoSound : IEquatable<PianoSound>
     public const int PitchMax88 = 108;
     public const int PitchMin88 = 21;
 
-    [JsonProperty("w")]
+    [JsonProperty(JsonPropertyNames.SoundDelay)]
     public float Delay { get; set; }
 
-    [JsonProperty("d")]
+    [JsonProperty(JsonPropertyNames.SoundDuration)]
     public float Duration { get; set; }
 
-    [JsonProperty("p")]
+    [JsonProperty(JsonPropertyNames.SoundPitch)]
     public int Pitch { get; set; }
 
-    [JsonProperty("v")]
+    [JsonProperty(JsonPropertyNames.SoundVelocity)]
     public int Velocity { get; set; }
 
     [JsonConstructor]

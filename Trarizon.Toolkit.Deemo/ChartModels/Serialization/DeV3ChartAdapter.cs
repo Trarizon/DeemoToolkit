@@ -8,7 +8,7 @@ using GeneralNote = Trarizon.Toolkit.Deemo.ChartModels.Note;
 namespace Trarizon.Toolkit.Deemo.ChartModels.Serialization;
 internal static class DeV3ChartAdapter
 {
-    private static JsonSerializer _serializer = JsonSerializer.Create(new JsonSerializerSettings { ReferenceResolverProvider = () => DeserializerReferenceResolver.Instance });
+    private static readonly JsonSerializer _serializer = JsonSerializer.Create(new JsonSerializerSettings { ReferenceResolverProvider = () => DeserializerReferenceResolver.Instance });
 
     private sealed class DeserializerReferenceResolver : IReferenceResolver
     {

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Trarizon.Toolkit.Deemo.ChartModels.Serialization;
 
 namespace Trarizon.Toolkit.Deemo.ChartModels;
 [JsonObject(MemberSerialization.OptIn)]
@@ -6,7 +7,7 @@ public readonly struct Link
 {
     public readonly Note _head;
 
-    [JsonProperty("notes")]
+    [JsonProperty(JsonPropertyNames.Notes)]
     public IEnumerable<Note> Notes
     {
         get {

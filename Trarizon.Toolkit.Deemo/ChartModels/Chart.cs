@@ -7,37 +7,37 @@ namespace Trarizon.Toolkit.Deemo.ChartModels;
 [JsonObject(MemberSerialization.OptIn)]
 public sealed class Chart
 {
-    [JsonProperty("speed")]
+    [JsonProperty(JsonPropertyNames.Speed)]
     public float Speed { get; set; }
 
     // Questionable
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("oriVMin")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.OriVMin)]
     public int MinVelocity => Notes.SelectMany(n => n.Sounds).Min(s => s.Velocity);
 
     // Questionable
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("oriVMax")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.OriVMax)]
     public int MaxVelocity => Notes.SelectMany(n => n.Sounds).Max(s => s.Velocity);
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("remapVMin")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.RemapVMin)]
     public int RemapMinVelocity { get; set; }
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("remapVMax")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.RemapVMax)]
     public int RemapMaxVelocity { get; set; }
 
-    [JsonProperty("notes")]
+    [JsonProperty(JsonPropertyNames.Notes)]
     public List<Note> Notes { get; }
 
-    [JsonProperty("links")]
+    [JsonProperty(JsonPropertyNames.Links)]
     public IEnumerable<Link> Links => from n in Notes
                                       where n.IsLinkHead()
                                       select new Link(n);
 
-    [ChartPropertyVersion(ChartPropertyVersion.DeemoII)]
-    [JsonProperty("lines")]
+    [ChartPropertyVersion(ChartPropertyVersions.DeemoII)]
+    [JsonProperty(JsonPropertyNames.Lines)]
     public List<SpeedLine> SpeedLines { get; }
 
     // All property constructor

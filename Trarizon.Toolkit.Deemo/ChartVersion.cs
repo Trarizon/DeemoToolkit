@@ -16,7 +16,7 @@ public enum ChartVersion
     /// </summary>
     /// <remarks>
     /// speed,  <br/>
-    /// note[ id, type, sounds[ w, d, p, v ], pos, size, _time, shift, time ],  <br/>
+    /// note[ id, type, sounds?[ w, d, p, v ], pos, size, _time, shift, time ],  <br/>
     /// links[ `ditto` ]
     /// </remarks>
     DeemoV2 = 0x0001,
@@ -62,7 +62,7 @@ public enum ChartVersion
     /// </summary>
     /// <remarks>
     /// speed, oriVMin, oriVMax, remapVMin, remapVMax,  <br/>
-    /// notes[id, sounds, pos, size, _time, shift, speed, duration, vibrate, swipe, warningType, eventID, time], <br/>
+    /// notes[ id, sounds, pos, size, _time, shift, speed, duration, vibrate, swipe, warningType, eventID, time ], <br/>
     /// links[ `ditto` ], <br/>
     /// lines[ speed, startTime, endTime, warningType ]
     /// </remarks>

@@ -3,9 +3,9 @@
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
 internal sealed class ChartPropertyVersionAttribute : Attribute
 {
-    public ChartPropertyVersion PropertyVersion { get; }
+    public ChartPropertyVersions PropertyVersion { get; }
 
-    public ChartPropertyVersionAttribute(ChartPropertyVersion propertyVersion)
+    public ChartPropertyVersionAttribute(ChartPropertyVersions propertyVersion)
     {
         PropertyVersion = propertyVersion;
     }

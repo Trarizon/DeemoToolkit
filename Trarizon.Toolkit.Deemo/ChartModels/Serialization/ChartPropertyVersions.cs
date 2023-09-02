@@ -1,5 +1,5 @@
 ﻿namespace Trarizon.Toolkit.Deemo.ChartModels.Serialization;
-internal enum ChartPropertyVersion
+internal enum ChartPropertyVersions
 {
     DeemoV1 = 1,
     DeemoV2 = 2,
