@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Trarizon.Toolkit.Deemo.Algorithm\Trarizon.Toolkit.Deemo.Algorithm.csproj" />
+    <ProjectReference Include="..\Trarizon.Toolkit.Deemo\Trarizon.Toolkit.Deemo.csproj" />
   </ItemGroup>
 
 </Project>

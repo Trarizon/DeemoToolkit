@@ -6,13 +6,6 @@ using Trarizon.Toolkit.Deemo.Commands.Components.Painting;
 using Trarizon.Toolkit.Deemo.Commands.Components.Painting.Interval;
 using Trarizon.Toolkit.Deemo.Commands.Functions;
 
-if (Chart.TryParseFromJson(File.ReadAllText(@"D:\Project Charts\Deenote\Music\&Deemo\5.Elysian Volitation.hard.txt"), out var chart)) {
-    Console.WriteLine("Loaded");
-     File.WriteAllText(@"D:\Project Charts\Deenote\Music\&Deemo\5.Elysian Volitation.hard.json", chart.ToJson(Trarizon.Toolkit.Deemo.ChartVersion.DeemoV2));
-    //Console.WriteLine(Chart.TryParseFromJson(chart.ToJson(),out _));
-}
-else Console.WriteLine("failed");
-
 bool verbChangable = true;
 
 if (args.Length > 0) {
