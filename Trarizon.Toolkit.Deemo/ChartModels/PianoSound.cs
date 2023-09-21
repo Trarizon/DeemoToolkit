@@ -8,6 +8,8 @@ public sealed class PianoSound : IEquatable<PianoSound>
     public const int PitchMax88 = 108;
     public const int PitchMin88 = 21;
 
+    #region Properties
+
     [JsonProperty(JsonPropertyNames.SoundDelay)]
     public float Delay { get; set; }
 
@@ -19,6 +21,10 @@ public sealed class PianoSound : IEquatable<PianoSound>
 
     [JsonProperty(JsonPropertyNames.SoundVelocity)]
     public int Velocity { get; set; }
+
+    #endregion
+
+    #region Constructors
 
     [JsonConstructor]
     public PianoSound(float delay, float duration, int pitch, int velocity)
@@ -32,6 +38,8 @@ public sealed class PianoSound : IEquatable<PianoSound>
     public PianoSound(PianoSound other) :
         this(other.Delay, other.Duration, other.Pitch, other.Velocity)
     { }
+
+    #endregion
 
     public bool Equals(PianoSound? other)
         => other != null

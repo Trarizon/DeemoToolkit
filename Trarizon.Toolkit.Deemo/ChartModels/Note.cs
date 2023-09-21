@@ -1,12 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using Trarizon.Toolkit.Deemo.ChartModels.Serialization;
+
+#pragma warning disable CS0618 // 类型或成员已过时
 
 namespace Trarizon.Toolkit.Deemo.ChartModels;
 [JsonObject(MemberSerialization.OptIn, IsReference = true)]
 public sealed class Note
 {
+    #region Serializable Properties
+
     [Obsolete("Suspected redundant field, use IsLink to instead")]
     [ChartPropertyVersion(ChartPropertyVersions.DeemoV2 | ChartPropertyVersions.DeemoReborn)]
     [JsonProperty(JsonPropertyNames.Type)]
@@ -62,6 +65,10 @@ public sealed class Note
     [JsonProperty(JsonPropertyNames.Time)]
     public float AnotherTime { get => Time; set { } }
 
+    #endregion
+
+    #region Properties
+
     private bool _isSlide;
     private Note? _prevLink;
     private Note? _nextLink;
@@ -104,13 +111,16 @@ public sealed class Note
 
     public float EndTime => Time + Duration;
 
+    #endregion
+
+    #region Constructors
+
     // All property constructor
     [JsonConstructor]
     private Note(List<PianoSound>? sounds, float position, float size, float time,
         float speed, float duration, bool vibrate, bool isSwipe, WarningType warningType, string eventId,
         NoteType type, float anotherTime)
     {
-#pragma warning disable CS0618
         Sounds = sounds ?? new List<PianoSound>();
         Position = position;
         Size = size;
@@ -123,7 +133,6 @@ public sealed class Note
         EventId = eventId;
         Type = type;
         AnotherTime = anotherTime;
-#pragma warning restore CS0618
     }
 
     /// <summary>
@@ -145,13 +154,14 @@ public sealed class Note
     { }
 
     public Note(Note other, bool cloneSounds = true) :
-#pragma warning disable CS0618 // 类型或成员已过时
         this(cloneSounds ? other.Sounds.Select(s => new PianoSound(s)).ToList() : new(),
             other.Position, other.Size, other.Time, other.Speed, other.Duration, other.Vibrate, other.IsSwipe, other.WarningType, other.EventId, other.Type, other.AnotherTime)
-#pragma warning restore CS0618 // 类型或成员已过时
     { }
 
-    public enum NoteType
+	#endregion
+
+	[Obsolete("Suspected redundant field, use IsLink to instead")]
+	public enum NoteType
     {
         Hit,
         Slide,

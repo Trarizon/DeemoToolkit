@@ -40,7 +40,7 @@ internal static class ChartSerializer
 		};
 
 		if (chartVersion == ChartVersion.DeemoV3)
-			return JsonConvert.SerializeObject(DeV3ChartAdapter.ToDeV3Chart(chart), settings);
+			return JsonConvert.SerializeObject(ChartAdapter.ToDeV3Chart(chart), settings);
 		else
 			return JsonConvert.SerializeObject(chart, settings);
 	}

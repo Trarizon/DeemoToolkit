@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-using GeneralChart = Trarizon.Toolkit.Deemo.ChartModels.Chart;
-using GeneralLink = Trarizon.Toolkit.Deemo.ChartModels.Link;
-using GeneralNote = Trarizon.Toolkit.Deemo.ChartModels.Note;
 
 namespace Trarizon.Toolkit.Deemo.ChartModels.Serialization;
-internal static class DeV3ChartAdapter
+internal static class ChartAdapter
 {
     private static readonly JsonSerializer _serializer = JsonSerializer.Create(new JsonSerializerSettings { ReferenceResolverProvider = () => DeserializerReferenceResolver.Instance });
 
@@ -17,21 +14,21 @@ internal static class DeV3ChartAdapter
         public void AddReference(object context, string reference, object value) => throw new NotImplementedException();
         public string GetReference(object context, object value) => throw new NotImplementedException();
         public bool IsReferenced(object context, object value) => throw new NotImplementedException();
-        public object ResolveReference(object context, string reference) => new Link.NoteRef { id = int.Parse(reference) };
+        public object ResolveReference(object context, string reference) => new DeV3Link.NoteRef { id = int.Parse(reference) };
     }
 
-    public static Chart ToDeV3Chart(GeneralChart chart)
+    public static DeV3Chart ToDeV3Chart(Chart chart)
     {
-        List<Note> notes = new(chart.Notes.Count);
-        Dictionary<GeneralNote, int> linkNoteIds = new();
-        List<GeneralNote> linkHeads = new();
+        List<DeV3Note> notes = new(chart.Notes.Count);
+        Dictionary<Note, int> linkNoteIds = new();
+        List<Note> linkHeads = new();
 
         for (int i = 0; i < chart.Notes.Count; i++) {
-            GeneralNote note = chart.Notes[i];
+            Note note = chart.Notes[i];
             int noteId = i + 1;
 
             // Note
-            notes.Add(new Note {
+            notes.Add(new DeV3Note {
                 _time = note.Time,
                 id = noteId,
                 sounds = note.Sounds,
@@ -47,26 +44,26 @@ internal static class DeV3ChartAdapter
             }
         }
 
-        return new Chart {
+        return new DeV3Chart {
             notes = notes,
-            links = linkHeads.Select(n => new Link {
-                notes = new GeneralLink(n).Notes.Select(n => new Link.NoteRef { id = linkNoteIds[n] })
+            links = linkHeads.Select(n => new DeV3Link {
+                notes = new Link(n).Notes.Select(n => new DeV3Link.NoteRef { id = linkNoteIds[n] })
             }),
             speed = chart.Speed,
         };
     }
 
-    public static GeneralChart ToGeneralChart(Chart chart)
+    private static Chart ToGeneralChart(DeV3Chart chart)
     {
-        List<GeneralNote>? notes = chart.notes?.Select(ConvertNote).ToList();
-        IEnumerable<GeneralLink.Deserializer>? links = chart.links?.Select(ConvertLink);
+        List<Note>? notes = chart.notes?.Select(ConvertNote).ToList();
+        IEnumerable<Link.Deserializer>? links = chart.links?.Select(ConvertLink);
 
-        return new GeneralChart(chart.speed, 10, 70, notes, links, null);
+        return new Chart(chart.speed, 10, 70, notes, links, null);
 
-        static GeneralNote ConvertNote(Note v3Note)
+        static Note ConvertNote(DeV3Note v3Note)
             => new(v3Note.pos, v3Note.size, v3Note._time, v3Note.sounds ?? new());
 
-        GeneralLink.Deserializer ConvertLink(Link v3Link)
+        Link.Deserializer ConvertLink(DeV3Link v3Link)
             => new(v3Link.notes?.Select(nref =>
             {
                 int index = nref.id - 1;
@@ -74,10 +71,10 @@ internal static class DeV3ChartAdapter
                     return notes![index];
                 else
                     throw new FormatException("note ids are not in order");
-            }) ?? Enumerable.Empty<GeneralNote>());
+            }) ?? Enumerable.Empty<Note>());
     }
 
-    public static GeneralChart? ParseFromV3Json(string json)
+    public static Chart? ParseFromV3Json(string json)
     {
         JObject? jobj = JsonConvert.DeserializeObject<JObject>(json);
         if (jobj == null)
@@ -88,21 +85,23 @@ internal static class DeV3ChartAdapter
             refToken["$ref"] = refToken["$ref"]!.ToString();
         }
 
-        var v3cht = jobj.ToObject<Chart>(_serializer);
+        var v3cht = jobj.ToObject<DeV3Chart>(_serializer);
         if (v3cht == null)
             return null;
 
         return ToGeneralChart(v3cht);
     }
 
-    public class Chart
+    #region Types
+
+    public class DeV3Chart
     {
-        public List<Note>? notes;
-        public IEnumerable<Link>? links;
+        public List<DeV3Note>? notes;
+        public IEnumerable<DeV3Link>? links;
         public float speed;
     }
 
-    public struct Link
+    public struct DeV3Link
     {
         public IEnumerable<NoteRef>? notes;
 
@@ -113,7 +112,7 @@ internal static class DeV3ChartAdapter
         }
     }
 
-    public class Note
+    public class DeV3Note
     {
         public float _time;
         [JsonProperty("$id")]
@@ -122,4 +121,6 @@ internal static class DeV3ChartAdapter
         public float pos;
         public float size;
     }
+
+    #endregion
 }
