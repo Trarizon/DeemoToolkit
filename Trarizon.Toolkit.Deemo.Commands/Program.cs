@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Diagnostics.Contracts;
-using Trarizon.Toolkit.Deemo.ChartModels;
 using Trarizon.Toolkit.Deemo.Commands;
 using Trarizon.Toolkit.Deemo.Commands.Functions;
 

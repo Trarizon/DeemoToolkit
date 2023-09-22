@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Trarizon.Toolkit.Deemo\Trarizon.Toolkit.Deemo.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Trarizon.Library.Collections">
+      <HintPath>..\libs\Trarizon.Library.Collections.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

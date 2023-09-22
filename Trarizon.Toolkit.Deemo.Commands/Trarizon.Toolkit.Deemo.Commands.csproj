@@ -27,5 +27,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+	
+	<ItemGroup>
+		<Reference Include="Trarizon.Library.Collections">
+			<HintPath>..\libs\Trarizon.Library.Collections.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
 </Project>

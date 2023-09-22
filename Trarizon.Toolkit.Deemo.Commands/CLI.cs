@@ -1,5 +1,5 @@
 ﻿using CommandLine;
-using Trarizon.Library.Collections.CollectionQuery;
+using Trarizon.Library.Collections.Extensions.Queries;
 using Trarizon.Toolkit.Deemo.Commands.Core;
 
 namespace Trarizon.Toolkit.Deemo.Commands;
