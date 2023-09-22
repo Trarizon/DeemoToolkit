@@ -1,10 +1,10 @@
-﻿using SkiaSharp;
-using Trarizon.Library.Collections.CollectionQuery;
-using Trarizon.Toolkit.Deemo.Commands.Components.Painting.Interval;
-using Trarizon.Toolkit.Deemo.Commands.Utility;
+﻿using CommunityToolkit.Diagnostics;
+using SkiaSharp;
+using Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
+using Trarizon.Toolkit.Deemo.Algorithm.Utilities;
 
-namespace Trarizon.Toolkit.Deemo.Commands.Components.Painting;
-public partial class ChartPainter
+namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
+public partial class NotesPainter
 {
     public sealed class Settings : IDisposable
     {
@@ -13,7 +13,7 @@ public partial class ChartPainter
         public const float XFadeInPercent = NoteWidth1x * 0.1f / SegmentWidth;
         public const int SpeedBase = 200;
 
-        private readonly ChartPainter _painter;
+        private readonly NotesPainter _painter;
 
         // Global parameters
         public GameVersion GameVersion { get; }
@@ -43,7 +43,7 @@ public partial class ChartPainter
         // Calculated
         public int SegmentHorizontalCenter => (int)LeftTagWidth + SegmentWidth / 2;
 
-        public Settings(ChartPainter painter, PaintingSettings settings)
+        public Settings(NotesPainter painter, PaintingSettings settings)
         {
             _painter = painter;
 
@@ -58,7 +58,7 @@ public partial class ChartPainter
             };
             MaxTime = ShowMidi
                 ? _painter.Notes[^1].EndTime
-                : _painter.Notes.LastOrDefaultValue(n => n.IsVisible)?.EndTime ?? 0f;
+                : _painter.Notes.LastOrDefault(n => n.IsVisible)?.EndTime ?? 0f;
 
             float offsetMaxTime = Offset(MaxTime);
             SegmentMainAreaTime = float.Min(offsetMaxTime, settings.SegmentMainAreaTimeSeconds);

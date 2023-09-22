@@ -1,7 +1,8 @@
 ﻿using CommandLine;
+using Trarizon.Toolkit.Deemo.Algorithm;
+using Trarizon.Toolkit.Deemo.Algorithm.Painting;
+using Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
 using Trarizon.Toolkit.Deemo.ChartModels;
-using Trarizon.Toolkit.Deemo.Commands.Components.Painting;
-using Trarizon.Toolkit.Deemo.Commands.Components.Painting.Interval;
 using Trarizon.Toolkit.Deemo.Commands.Core;
 
 namespace Trarizon.Toolkit.Deemo.Commands.Functions;

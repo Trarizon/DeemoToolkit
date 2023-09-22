@@ -9,10 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="SkiaSharp" Version="2.88.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Trarizon.Toolkit.Deemo.Algorithm\Trarizon.Toolkit.Deemo.Algorithm.csproj" />
     <ProjectReference Include="..\Trarizon.Toolkit.Deemo\Trarizon.Toolkit.Deemo.csproj" />
   </ItemGroup>
 

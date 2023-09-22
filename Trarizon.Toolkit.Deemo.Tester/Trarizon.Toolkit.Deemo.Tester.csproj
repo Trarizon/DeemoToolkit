@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Trarizon.Toolkit.Deemo.Algorithm\Trarizon.Toolkit.Deemo.Algorithm.csproj" />
     <ProjectReference Include="..\Trarizon.Toolkit.Deemo\Trarizon.Toolkit.Deemo.csproj" />
   </ItemGroup>

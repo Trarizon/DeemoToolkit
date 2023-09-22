@@ -1,34 +1,22 @@
 ﻿using SkiaSharp;
 using System.Diagnostics;
-using Trarizon.Library.Collections.CollectionQuery;
+using Trarizon.Library.Collections.Extensions.Queries;
 using Trarizon.Toolkit.Deemo.ChartModels;
 
-namespace Trarizon.Toolkit.Deemo.Commands.Components.Painting;
-public sealed partial class ChartPainter : IDisposable
+namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
+public sealed partial class NotesPainter : IDisposable
 {
     private const byte FadeNoteAlpha = 0x3f;
 
     private Settings _settings;
-    public IReadOnlyList<Note> Notes { get; }
+    public IList<Note> Notes { get; }
 
     public float MaxTime => _settings.MaxTime;
 
-    public ChartPainter(IReadOnlyList<Note> notes, PaintingSettings? settings = null)
+    public NotesPainter(IList<Note> notes, PaintingSettings? settings = null)
     {
         Notes = notes;
         _settings = new Settings(this, settings ?? PaintingSettings.Default);
-    }
-
-    public static SKSurface Paint(IReadOnlyList<Note> notes, PaintingSettings? settings = null)
-    {
-        using var painter = new ChartPainter(notes, settings);
-        return painter.Paint();
-    }
-
-    public static Task<SKSurface> PaintAsync(IReadOnlyList<Note> notes, PaintingSettings? settings = null)
-    {
-        using var painter = new ChartPainter(notes, settings);
-        return painter.PaintAsync();
     }
 
     #region Painting Methods

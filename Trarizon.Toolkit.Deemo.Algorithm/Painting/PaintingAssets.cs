@@ -1,8 +1,8 @@
 ﻿using SkiaSharp;
+using Trarizon.Toolkit.Deemo.Algorithm.Utilities;
 using Trarizon.Toolkit.Deemo.Assets;
-using Trarizon.Toolkit.Deemo.Commands.Utility;
 
-namespace Trarizon.Toolkit.Deemo.Commands.Components.Painting;
+namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
 public sealed class PaintingAssets : IDisposable
 {
     private readonly InternalAssets _internal;

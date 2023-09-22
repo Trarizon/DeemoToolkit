@@ -2,8 +2,6 @@
 using System.Diagnostics.Contracts;
 using Trarizon.Toolkit.Deemo.ChartModels;
 using Trarizon.Toolkit.Deemo.Commands;
-using Trarizon.Toolkit.Deemo.Commands.Components.Painting;
-using Trarizon.Toolkit.Deemo.Commands.Components.Painting.Interval;
 using Trarizon.Toolkit.Deemo.Commands.Functions;
 
 bool verbChangable = true;
