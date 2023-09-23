@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Diagnostics;
 using Trarizon.Toolkit.Deemo.Algorithm.Utilities;
 using Trarizon.Toolkit.Deemo.ChartModels;
+using Trarizon.Library.Extensions;
+using Trarizon.Library.Collections.Extensions.Queries;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm;
 public static class ChartConverter
@@ -48,31 +50,36 @@ public static class ChartConverter
 		if (multiTapTimeThreshold < 0f) multiTapTimeThreshold = 0f;
 		multiTapPositionThreshold = Math.Clamp(multiTapPositionThreshold, 0f, 2f);
 
-		Random rnd = randomSeed is null ? new Random() : new Random(randomSeed.Value);
+		Random rnd = randomSeed is null ? Random.Shared : new Random(randomSeed.Value);
 		Queue<Note> potentialOverlapNotes = new();
-		Note prevNote = chart.Notes[0];
 
-		foreach (var note in chart.Notes.Skip(1)) {
-			if (!note.IsVisible)
-				continue;
+		var notes = chart.Notes.Where(n => n.IsVisible).SkipFirstAndKeep(out var prevNote);
+		if (prevNote == null) // No note
+			return;
 
+		foreach (var note in notes) {
 			prevNote = RandomInternal(prevNote, note);
-			RandomNoteSize(prevNote);
+			TryRandomNoteSize(prevNote);
 		}
 
-		if (prevNote.IsSlide) Random(prevNote);
-		else RandomClick(prevNote);
-		RandomNoteSize(prevNote);
+		{ // Last note
+			if (prevNote.IsSlide) RandomNotePosition(prevNote);
+			else RandomClick(prevNote);
+			TryRandomNoteSize(prevNote);
+		}
+		return;
 
+		// return: the note which is not handled
 		Note RandomInternal(Note note, Note nextNote)
 		{
 			// If slide, just random[-2, 2]
 			if (note.IsSlide) {
-				Random(note);
+				RandomNotePosition(note);
 			}
-			// If this is click but next is slide, process slide first to avoid overlapping
+			// If double-hit, and this is click but next is slide,
+			// process slide first to avoid overlapping
 			else if (nextNote.IsSlide && nextNote.Time == note.Time) {
-				Random(nextNote);
+				RandomNotePosition(nextNote);
 				potentialOverlapNotes.Enqueue(nextNote);
 				return note;
 			}
@@ -82,10 +89,10 @@ public static class ChartConverter
 			}
 
 			potentialOverlapNotes.Enqueue(note);
-			return nextNote!;
+			return nextNote;
 		}
 
-		void Random(Note note) => note.Position = rnd.NextSingle() * (2 + 2) - 2;
+		void RandomNotePosition(Note note) => note.Position = rnd.NextSingle(-2, 2);
 
 		void RandomClick(Note note)
 		{
@@ -105,13 +112,13 @@ public static class ChartConverter
 					potentialOverlapNotes.Dequeue();
 				}
 			}
-			Random(note);
+			RandomNotePosition(note);
 		}
 
-		void RandomNoteSize(Note note)
+		void TryRandomNoteSize(Note note)
 		{
 			if (randomSize)
-				note.Size = rnd.NextSingle() * (2f - 0.6f) + 0.6f;
+				note.Size = rnd.NextSingle(0.6f, 2f);
 		}
 	}
 

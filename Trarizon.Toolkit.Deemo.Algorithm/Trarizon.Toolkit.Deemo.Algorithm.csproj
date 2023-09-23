@@ -19,6 +19,9 @@
     <Reference Include="Trarizon.Library.Collections">
       <HintPath>..\libs\Trarizon.Library.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Trarizon.Library">
+      <HintPath>..\libs\Trarizon.Library.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
