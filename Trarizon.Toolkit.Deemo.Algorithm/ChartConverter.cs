@@ -128,6 +128,12 @@ public static class ChartConverter
 			if (note.IsSlide) {
 				note.IsSlide = false;
 			}
+			if (note.IsSwipe) {
+				note.IsSwipe = false;
+			}
+			if (note.Duration > 0f) {
+				note.Duration = 0f;
+			}
 		}
 	}
 }

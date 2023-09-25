@@ -4,14 +4,14 @@ public static class ScoreCalculation
 	private const float CharmingLimit = 50f;
 	private const float HitLimit = 120;
 
-	// Max Result is in [0, 1]
+	// Result is in [0, 1]
 	public static float TotalScore(ReadOnlySpan<float> offsets) => JudgeScore(offsets) * 0.8f + ComboScore(offsets) * 0.2f;
 
-	// Max Result is in [0, 1]
+	// Result is in [0, 1]
 	public static float JudgeScore(ReadOnlySpan<float> offsets) => offsets.Length == 0 ? 0 :
 		ActualJudgeScore(offsets) / offsets.Length;
 
-	// Max Result is in [0, 1]
+	// Result is in [0, 1]
 	public static float ComboScore(ReadOnlySpan<float> offsets) => offsets.Length == 0 ? 0 :
 		ActualComboScore(offsets) / ((offsets.Length - 1) * offsets.Length / 2);
 

@@ -1,10 +1,22 @@
 # DeemoToolkit
 
-DEEMO相关的一些工具
+自用DEEMO相关库
+
+## Algorithm
+
+- `ChartConverter`
+  - `RearrangeByPitch` : 将所有note按音高重新排列
+  - `RandomNotes` : 随机非背景note的位置、键宽（可选）
+  - `ToAllClick` : 将所有note转为click（包括二代的swipe和hold）
+- `ChartPainter` : 绘制谱面图
+- `ScoreCalculation` : DEEMO的计分规则模拟
 
 ## Commands
 
 命令行工具，如果不是用命令行过于复杂的都扔在这里了
+
+<details>
+<summary>详细</summary>
 
 ### ChartPainting
 ```
@@ -60,6 +72,8 @@ rnd <file...> [-s:int?] [-w] [-t:float] [-x:float]
 black <file...>
 ```
 将所有note转为click
+
+</details>
 
 ## InfoFileGenerator
 
