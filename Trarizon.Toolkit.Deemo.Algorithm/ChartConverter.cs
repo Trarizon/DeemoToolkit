@@ -13,23 +13,14 @@ public static class ChartConverter
 
 		// List<> has a better performance here
 		List<(float Time, PianoSound Sound)> sounds
-			= chart.Notes.SelectMany(n => n.Sounds.Select(s => (n.Time, s))).ToList();
+			= chart.Notes.SelectMany(n => n.Sounds, (n, s) => (n.Time, s)).ToList();
 
-		if (!sounds.Any())
+		if (sounds.Count == 0)
 			return new Chart(chart, false);
 
-		int minp, maxp;
-		if (fixRange)
-			(minp, maxp) = (PianoSound.PitchMin88, PianoSound.PitchMax88);
-		else {
-			(minp, maxp) = (int.MaxValue, int.MinValue);
-			foreach (var (_, sound) in sounds) {
-				if (sound.Pitch < minp)
-					minp = sound.Pitch;
-				if (sound.Pitch > maxp)
-					maxp = sound.Pitch;
-			}
-		}
+		var (minp, maxp) = fixRange
+			? (PianoSound.PitchMin88, PianoSound.PitchMax88)
+			: sounds.MinMax(s => s.Sound.Pitch);
 
 		Chart atarashii = new(chart, false);
 		atarashii.Notes.AddRange(sounds.Select(s => new Note(
