@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Trarizon.Toolkit.Deemo.InfoFileGenerator.Utilities;
 
-namespace Trarizon.Toolkit.Deemo.InfoFileGenerator.Models;
+namespace Trarizon.Toolkit.Deemo.InfoFileGenerator.Entities;
 public sealed class ChartInfo
 {
     public BasicChartInfo Basic { get; }

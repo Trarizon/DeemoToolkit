@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="Trarizon.Toolkit.Deemo.InfoFileGenerator.Controls.SmallPropertyTextBox"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:local="using:Trarizon.Toolkit.Deemo.InfoFileGenerator.Controls"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ctrls="using:CommunityToolkit.WinUI.UI.Controls"
+			 mc:Ignorable="d">
+
+	<ctrls:DockPanel Margin="4,2,4,2">
+		<TextBlock Text="{x:Bind PropertyName}"
+				   Style="{StaticResource TxtPropertyNameTextBlockStyle}"/>
+		<TextBox Text="{x:Bind PropertyValue,Mode=TwoWay}"
+				 VerticalContentAlignment="Center"
+				 FontSize="16" />
+	</ctrls:DockPanel>
+</UserControl>

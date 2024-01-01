@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using Trarizon.Toolkit.Deemo.InfoFileGenerator.Models;
+using Trarizon.Toolkit.Deemo.InfoFileGenerator.Entities;
 using Trarizon.Toolkit.Deemo.InfoFileGenerator.Utilities;
 
 namespace Trarizon.Toolkit.Deemo.InfoFileGenerator.ViewModels;

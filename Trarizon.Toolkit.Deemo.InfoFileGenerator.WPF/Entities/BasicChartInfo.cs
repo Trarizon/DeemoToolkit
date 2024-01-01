@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Trarizon.Toolkit.Deemo.InfoFileGenerator.Utilities;
 
-namespace Trarizon.Toolkit.Deemo.InfoFileGenerator.Models;
+namespace Trarizon.Toolkit.Deemo.InfoFileGenerator.Entities;
 public partial class BasicChartInfo : ObservableObject
 {
     [ObservableProperty] string _musicName = "";

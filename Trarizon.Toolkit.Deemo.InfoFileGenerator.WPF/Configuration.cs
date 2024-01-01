@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
-using Trarizon.Toolkit.Deemo.InfoFileGenerator.Models;
+using Trarizon.Toolkit.Deemo.InfoFileGenerator.Entities;
 
 namespace Trarizon.Toolkit.Deemo.InfoFileGenerator;
 [JsonObject(MemberSerialization.OptIn)]
