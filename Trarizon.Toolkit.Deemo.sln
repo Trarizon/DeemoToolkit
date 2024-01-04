@@ -18,12 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trarizon.Toolkit.Deemo.Algo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trarizon.Toolkit.Deemo.Tester", "Trarizon.Toolkit.Deemo.Tester\Trarizon.Toolkit.Deemo.Tester.csproj", "{280FD48B-8915-44B2-A0CA-1F93B3EC70AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{4882DCF4-672B-4225-A8AC-DB9CFFA3791D}"
-	ProjectSection(SolutionItems) = preProject
-		libs\Trarizon.Library.Collections.dll = libs\Trarizon.Library.Collections.dll
-		libs\Trarizon.Library.dll = libs\Trarizon.Library.dll
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,9 +47,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{4882DCF4-672B-4225-A8AC-DB9CFFA3791D} = {1698D55F-A203-4AD5-8D1B-6983434B9B54}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA0A24E8-8974-4583-AB69-CBAF86F920C1}

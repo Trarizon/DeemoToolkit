@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="Trarizon.Library" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,11 +28,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-	
-	<ItemGroup>
-		<Reference Include="Trarizon.Library.Collections">
-			<HintPath>..\libs\Trarizon.Library.Collections.dll</HintPath>
-		</Reference>
-	</ItemGroup>
 
 </Project>
