@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
-public sealed class TimeInterval : IPaintingInterval
+internal sealed class TimeInterval : IPaintingInterval
 {
 	public float _time;
 
@@ -9,7 +9,7 @@ public sealed class TimeInterval : IPaintingInterval
 
 	public IPaintingInterval Clone() => new TimeInterval(_time);
 
-	public IEnumerable<PaintingIntervalTag> GetTags(NotesPainter painter)
+	public IEnumerable<PaintingIntervalTag> GetTags(INotesPainter painter)
 	{
 		int multiple = 1;
 		float maxTime = painter.MaxTime;

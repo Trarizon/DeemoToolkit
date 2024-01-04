@@ -1,4 +1,4 @@
-﻿namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
+﻿namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
 public readonly struct PaintingIntervalTag
 {
     public readonly float Time;

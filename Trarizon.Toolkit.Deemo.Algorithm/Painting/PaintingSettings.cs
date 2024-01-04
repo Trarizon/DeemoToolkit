@@ -1,4 +1,6 @@
-﻿namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
+﻿using Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
+
+namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
 public sealed class PaintingSettings
 {
     public static PaintingSettings Default { get; } = new PaintingSettings();

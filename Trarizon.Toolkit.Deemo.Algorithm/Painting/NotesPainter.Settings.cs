@@ -2,11 +2,12 @@
 using SkiaSharp;
 using Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
 using Trarizon.Toolkit.Deemo.Algorithm.Utilities;
+using Trarizon.Toolkit.Deemo.ChartModels;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
-public partial class NotesPainter
+internal partial class NotesPainter
 {
-    public sealed class Settings : IDisposable
+    private sealed class InternalSettings : IDisposable
     {
         public const int NoteWidth1x = 100;
         public const int SegmentWidth = NoteWidth1x * 6;
@@ -15,37 +16,40 @@ public partial class NotesPainter
 
         private readonly NotesPainter _painter;
 
+        public readonly IReadOnlyList<Note> Notes;
+
         // Global parameters
-        public GameVersion GameVersion { get; }
-        public bool ShowMidi { get; } // TODO: show midi on background
-        public int PixelPerSecond { get; }
-        public PaintingAssets Assets { get; }
+        public readonly GameVersion GameVersion;
+        public readonly bool ShowMidi; // TODO: show midi on background
+        public readonly int PixelPerSecond;
+        public readonly PaintingAssets Assets;
         private readonly float _timeOffset;
-        public float MaxTime { get; }
+        public readonly float MaxTime;
 
         // Segment canvas settings
-        public float SegmentMainAreaTime { get; }
-        public (float Enter, float Exit) SubAreaTimes { get; }
-        public int SegmentCount { get; }
+        public readonly float SegmentMainAreaTime;
+        public readonly (float Enter, float Exit) SubAreaTimes;
+        public readonly int SegmentCount;
         private readonly IPaintingInterval _leftInterval;
         private readonly IPaintingInterval _rightInterval;
         public IEnumerable<PaintingIntervalTag> LeftTags => _leftInterval.GetTags(_painter);
         public IEnumerable<PaintingIntervalTag> RightTags => _rightInterval.GetTags(_painter);
-        public float LeftTagWidth { get; }
-        public float RightTagWidth { get; }
-        public SKImageInfo SegmentImageInfo { get; }
+        public readonly float LeftTagWidth;
+        public readonly float RightTagWidth;
+        public readonly SKImageInfo SegmentImageInfo;
 
         // Global canvas settings
-        public (int Left, int Right, int Top, int Bottom) Padding { get; }
-        public int GapWidth { get; }
-        public SKImageInfo ImageInfo { get; }
+        public readonly (int Left, int Right, int Top, int Bottom) Padding;
+        public readonly int GapWidth;
+        public readonly SKImageInfo ImageInfo;
 
         // Calculated
         public int SegmentHorizontalCenter => (int)LeftTagWidth + SegmentWidth / 2;
 
-        public Settings(NotesPainter painter, PaintingSettings settings)
+        public InternalSettings(NotesPainter painter, IReadOnlyList<Note> notes, PaintingSettings settings)
         {
             _painter = painter;
+            Notes = notes;
 
             GameVersion = settings.GameVersion;
             ShowMidi = settings.ShowMidi;
@@ -53,12 +57,12 @@ public partial class NotesPainter
             Assets = new PaintingAssets(GameVersion);
             _timeOffset = (settings.SkipLeadingBlank, ShowMidi) switch {
                 (false, _) => 0f,
-                (true, false) => _painter.Notes.FirstOrDefault(n => n.IsVisible)?.Time ?? ThrowHelper.ThrowInvalidOperationException<float>("No valid note"),
-                (true, true) => _painter.Notes.Count > 0 ? _painter.Notes[0].Time : ThrowHelper.ThrowInvalidOperationException<float>("No valid note"),
+                (true, false) => Notes.FirstOrDefault(n => n.IsVisible)?.Time ?? ThrowHelper.ThrowInvalidOperationException<float>("No valid note"),
+                (true, true) => Notes.Count > 0 ? Notes[0].Time : ThrowHelper.ThrowInvalidOperationException<float>("No valid note"),
             };
             MaxTime = ShowMidi
-                ? _painter.Notes[^1].EndTime
-                : _painter.Notes.LastOrDefault(n => n.IsVisible)?.EndTime ?? 0f;
+                ? Notes[^1].EndTime
+                : Notes.LastOrDefault(n => n.IsVisible)?.EndTime ?? 0f;
 
             float offsetMaxTime = Offset(MaxTime);
             SegmentMainAreaTime = float.Min(offsetMaxTime, settings.SegmentMainAreaTimeSeconds);

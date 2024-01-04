@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
-public sealed class ComboInterval : IPaintingInterval
+internal sealed class ComboInterval : IPaintingInterval
 {
 	private readonly int _combo;
 
@@ -9,7 +9,7 @@ public sealed class ComboInterval : IPaintingInterval
 
 	public IPaintingInterval Clone() => new ComboInterval(_combo);
 
-	public IEnumerable<PaintingIntervalTag> GetTags(NotesPainter painter)
+	public IEnumerable<PaintingIntervalTag> GetTags(INotesPainter painter)
 	{
 		int currentCombo = 1;
 		foreach (var note in painter.Notes) {

@@ -1,22 +1,27 @@
 ﻿using SkiaSharp;
 using System.Diagnostics;
-using Trarizon.Library.Collections.Extensions.Queries;
+using Trarizon.Library.Collections.Extensions;
+using Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
 using Trarizon.Toolkit.Deemo.ChartModels;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting;
-public sealed partial class NotesPainter : IDisposable
+internal sealed partial class NotesPainter : INotesPainter, IDisposable
 {
     private const byte FadeNoteAlpha = 0x3f;
 
-    private Settings _settings;
-    public IList<Note> Notes { get; }
+    private InternalSettings _settings;
 
-    public float MaxTime => _settings.MaxTime;
+    #region INotePainter
 
-    public NotesPainter(IList<Note> notes, PaintingSettings? settings = null)
+    IReadOnlyList<Note> INotesPainter.Notes => _settings.Notes;
+
+    float INotesPainter.MaxTime => _settings.MaxTime;
+
+    #endregion
+
+    public NotesPainter(IReadOnlyList<Note> notes, PaintingSettings settings)
     {
-        Notes = notes;
-        _settings = new Settings(this, settings ?? PaintingSettings.Default);
+        _settings = new InternalSettings(this, notes, settings);
     }
 
     #region Painting Methods
@@ -94,7 +99,7 @@ public sealed partial class NotesPainter : IDisposable
         // For hold tail
         (int, int) holdSegmentRange = segmentRange;
 
-        foreach (Note note in Notes.ReverseList().Where(n => n.IsVisible)) {
+        foreach (Note note in _settings.Notes.ReverseROList().Where(n => n.IsVisible)) {
             PaintNote(painters, note, ref segmentRange);
 
             if (note.IsHold && holdPainters != null)
@@ -196,7 +201,7 @@ public sealed partial class NotesPainter : IDisposable
             _ => _settings.Assets.NosoundNote ?? _settings.Assets.PianoNote,
         };
 
-        float centerX = _settings.SegmentHorizontalCenter + note.Position * Settings.NoteWidth1x;
+        float centerX = _settings.SegmentHorizontalCenter + note.Position * InternalSettings.NoteWidth1x;
         float centerY = _settings.OffsetAndGetY(note.Time, segmentId);
         float halfX = noteImg.Width / 2 * note.Size;
         float halfY = noteImg.Height / 2;
@@ -212,7 +217,7 @@ public sealed partial class NotesPainter : IDisposable
         if (!note.IsHold || _settings.Assets.HoldNote == null) return;
         SKBitmap noteImg = _settings.Assets.HoldNote;
 
-        float centerX = _settings.SegmentHorizontalCenter + note.Position * Settings.NoteWidth1x;
+        float centerX = _settings.SegmentHorizontalCenter + note.Position * InternalSettings.NoteWidth1x;
         float y = _settings.OffsetAndGetY(note.EndTime, segmentId);
         float halfX = noteImg.Width / 2 * note.Size;
         float height = _settings.TimeToPixel(note.Duration);
@@ -245,7 +250,7 @@ public sealed partial class NotesPainter : IDisposable
 
         public SegmentPainter this[int index] => _painters[index];
 
-        public SegmentPainters(Settings settings, bool isForHold = false)
+        public SegmentPainters(InternalSettings settings, bool isForHold = false)
         {
             _painters = new SegmentPainter[settings.SegmentCount];
 
@@ -259,36 +264,29 @@ public sealed partial class NotesPainter : IDisposable
                 settings.SegmentImageInfo.Width, settings.SegmentImageInfo.Height, maskPaint);
         }
 
-        private static SKPaint GetHoldMask(Settings settings) => new() {
+        private static readonly float[] HoldMaskColorPosition = [0f, 0f, 1f, 1f,];
+        private static SKPaint GetHoldMask(InternalSettings settings) => new() {
             Shader = SKShader.CreateLinearGradient(
             start: new SKPoint(0, settings.Assets.OneSidePreservedBlank + settings.TimeToPixel(settings.SubAreaTimes.Exit)),
             end: new SKPoint(0, settings.SegmentImageInfo.Height - settings.Assets.OneSidePreservedBlank - settings.TimeToPixel(settings.SubAreaTimes.Enter)),
-            new SKColor[] {
-                new SKColor(0xffffff | (FadeNoteAlpha << 24)),
+            colors: [
+                new(0xffffff | (FadeNoteAlpha << 24)),
                 SKColors.White,
                 SKColors.White,
-                new SKColor(0xffffff | (FadeNoteAlpha << 24)),
-            },
-            new float[] { 0f, 0f, 1f, 1f, },
+                new(0xffffff | (FadeNoteAlpha << 24)),
+            ],
+            HoldMaskColorPosition,
             SKShaderTileMode.Clamp),
         };
 
-        private static SKPaint GetNotesMask(Settings settings) => new() {
+        private static readonly SKColor[] NoteMaskColors = [SKColors.Transparent, SKColors.White, SKColors.White, SKColors.Transparent,];
+        private static readonly float[] NoteMaskColorPosition = [0, InternalSettings.XFadeInPercent, 1 - InternalSettings.XFadeInPercent, 1,];
+        private static SKPaint GetNotesMask(InternalSettings settings) => new() {
             Shader = SKShader.CreateLinearGradient(
                 start: new SKPoint(settings.LeftTagWidth, 0),
                 end: new SKPoint(settings.SegmentImageInfo.Width - settings.RightTagWidth, 0),
-                new SKColor[] {
-                    SKColors.Transparent,
-                    SKColors.White,
-                    SKColors.White,
-                    SKColors.Transparent
-                },
-                new float[] {
-                    0,
-                    Settings.XFadeInPercent,
-                    1 - Settings.XFadeInPercent,
-                    1,
-                },
+                NoteMaskColors,
+                NoteMaskColorPosition,
                 SKShaderTileMode.Clamp),
         };
 
@@ -322,7 +320,7 @@ public sealed partial class NotesPainter : IDisposable
         public readonly SKSurface Surface;
         public readonly SKCanvas Canvas;
 
-        public SegmentPainter(Settings settings)
+        public SegmentPainter(InternalSettings settings)
         {
             Surface = SKSurface.Create(settings.SegmentImageInfo);
             Canvas = Surface.Canvas;

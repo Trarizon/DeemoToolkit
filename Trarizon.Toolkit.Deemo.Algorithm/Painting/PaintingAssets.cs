@@ -27,12 +27,12 @@ public sealed class PaintingAssets : IDisposable
             _ => throw new NotImplementedException(),
         };
         TagPaint = _internal.TagPaint.Clone();
-        OneSidePreservedBlank = (MathUtil.Max<int>(stackalloc int[] {
+        OneSidePreservedBlank = (MathUtil.Max([
             PianoNote.Height,
             SlideNote.Height,
             NosoundNote?.Height ?? 0,
             SwipeNote?.Height ?? 0
-        }) + 1) / 2; // Round up
+        ]) + 1) / 2; // Round up
     }
 
     public void Dispose()
