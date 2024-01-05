@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="Trarizon.Toolkit.Deemo.InfoFileGenerator.Views.TxtInfoView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:c="using:Trarizon.Toolkit.Deemo.InfoFileGenerator.Controls"
+			 xmlns:ctrls="using:CommunityToolkit.WinUI.UI.Controls"
+			 xmlns:res="using:Trarizon.Toolkit.Deemo.InfoFileGenerator.Resources"
+			 mc:Ignorable="d">
+
+	<StackPanel Orientation="Vertical">
+
+		<CheckBox Content="UseMidi"
+				  FontSize="14"
+				  VerticalContentAlignment="Center"
+				  IsChecked="{x:Bind ViewModel.UseMidi,Mode=TwoWay}" />
+
+
+		<!--#region Midi settings -->
+
+		<StackPanel Orientation="Vertical"
+					Visibility="{x:Bind ViewModel.UseMidi,Mode=OneWay,Converter={StaticResource BoolToVisiblityConverter}}">
+
+			<c:SmallPropertyTextBox PropertyName="Midi File"
+									PropertyValue="{x:Bind ViewModel.MidiFile}" />
+			<ctrls:DockPanel Margin="4,2,4,2">
+				<TextBlock Text="Difficulty"
+						   Style="{StaticResource TxtPropertyNameTextBlockStyle}" />
+				<ComboBox ItemsSource="{x:Bind res:EnumItemsSources.ChartDifficulties}"
+						  SelectedItem="{x:Bind ViewModel.MidiDifficulty}"
+						  VerticalContentAlignment="Center"
+						  HorizontalAlignment="Stretch"
+						  FontSize="16" />
+			</ctrls:DockPanel>
+
+		</StackPanel>
+
+		<!--#endregion-->
+
+		<!--#region Json settings -->
+
+		<StackPanel Orientation="Vertical"
+					Visibility="{x:Bind ViewModel.UseJson,Mode=OneWay,Converter={StaticResource BoolToVisiblityConverter}}">
+
+			<c:SmallPropertyTextBox PropertyName="Easy Json File"
+									PropertyValue="{x:Bind ViewModel.EasyJsonFile}" />
+			<c:SmallPropertyTextBox PropertyName="Normal Json File"
+									PropertyValue="{x:Bind ViewModel.NormalJsonFile}" />
+			<c:SmallPropertyTextBox PropertyName="Hard Json File"
+									PropertyValue="{x:Bind ViewModel.HardJsonFile}" />
+			<c:SmallPropertyTextBox PropertyName="Extra Json File"
+									PropertyValue="{x:Bind ViewModel.ExtraJsonFile}" />
+		</StackPanel>
+
+		<!--#endregion-->
+
+		<c:SmallPropertyTextBox PropertyName="Music File"
+								PropertyValue="{x:Bind ViewModel.MusicFile}" />
+		<c:SmallPropertyTextBox PropertyName="Preview File"
+								PropertyValue="{x:Bind ViewModel.PreviewFile}" />
+		<c:SmallPropertyTextBox PropertyName="Cover File"
+								PropertyValue="{x:Bind ViewModel.CoverFile}" />
+		<c:SmallPropertyTextBox PropertyName="Offset"
+								PropertyValue="{x:Bind ViewModel.Offset}" />
+		<c:SmallPropertyTextBox PropertyName="Audio Volume"
+								PropertyValue="{x:Bind ViewModel.AudioVolume}" />
+		<c:SmallPropertyTextBox PropertyName="Piano Volume"
+								PropertyValue="{x:Bind ViewModel.PianoVolume}" />
+		<c:SmallPropertyTextBox PropertyName="Center"
+								PropertyValue="{x:Bind ViewModel.Center}" />
+		<c:SmallPropertyTextBox PropertyName="Scale"
+								PropertyValue="{x:Bind ViewModel.Scale}" />
+	</StackPanel>
+</UserControl>

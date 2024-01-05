@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="Trarizon.Toolkit.Deemo.InfoFileGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrls="using:CommunityToolkit.WinUI.UI.Controls"
+        xmlns:v="using:Trarizon.Toolkit.Deemo.InfoFileGenerator.Views"
+        mc:Ignorable="d"
+		Title="InfoFileGenerator">
+
+	<Grid x:Name="contentGrid" 
+		  SizeChanged="Grid_SizeChanged" 
+		  HorizontalAlignment="Left"
+		  VerticalAlignment="Top">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="400" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel>
+			<v:IniInfoView DataContext="{x:Bind _iniInfoViewModel}" />
+
+			<ctrls:DockPanel Margin="4,2,4,2">
+				<TextBlock Text="Directory"
+						   FontSize="16"
+						   Margin="0,0,2,0"
+						   VerticalAlignment="Center"
+						   ctrls:DockPanel.Dock="Left" />
+				<TextBox FontSize="16"
+						 Text="{x:Bind ViewModel.ExportPath,Mode=TwoWay}"
+						 AllowDrop="True" />
+			</ctrls:DockPanel>
+
+			<Grid Margin="4">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="1*" />
+				</Grid.ColumnDefinitions>
+
+				<ListView x:Name="projectFiles_ListView" ItemsSource="{x:Bind ViewModel.ProjectFiles,Mode=OneWay}"
+						  HorizontalAlignment="Stretch"
+						  AllowDrop="True"
+						  DragOver="ListView_DragOver"
+						  Drop="ListView_Drop"/>
+
+				<StackPanel Margin="4,0,0,0"
+							Grid.Column="1">
+					<Button Style="{StaticResource MainButtonStyle}"
+							Content="Export INI (DeemoDIY)"
+							Command="{x:Bind ViewModel.ExportIniCommand}" />
+
+					<Button Style="{StaticResource MainButtonStyle}"
+							Content="Export TXT (DemooPlayer)"
+							Command="{x:Bind ViewModel.ExportTxtCommand}" />
+
+					<Button Style="{StaticResource MainButtonStyle}"
+							Content="Save As Config"
+							Command="{x:Bind ViewModel.SaveConfigurationCommand}" />
+
+					<Button Style="{StaticResource MainButtonStyle}"
+							Content="Normalize File Names"
+							Command="{x:Bind ViewModel.NormalizeFileNamesCommand}" />
+
+					<ToggleButton Name="expandDp_Toggle"
+								  Content="DemooPlayer Settings"
+								  HorizontalAlignment="Stretch"
+								  FontSize="14" />
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+
+		<v:TxtInfoView Visibility="{Binding ElementName=expandDp_Toggle,Path=IsChecked,Converter={StaticResource BoolToVisiblityConverter}}"
+					   Width="400"
+					   DataContext="{x:Bind _txtInfoViewModel}"
+					   Grid.Column="1" />
+	</Grid>
+
+</Window>
