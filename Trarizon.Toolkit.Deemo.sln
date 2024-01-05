@@ -22,11 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{4882DCF4-6
 		libs\Trarizon.Library.dll = libs\Trarizon.Library.dll
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trarizon.Toolkit.Deemo.InfoFileGenerator.WPF", "Trarizon.Toolkit.Deemo.InfoFileGenerator.WPF\Trarizon.Toolkit.Deemo.InfoFileGenerator.WPF.csproj", "{0CAF9845-E48F-40E8-9227-70015C0622C2}"
-EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "Trarizon.Toolkit.Deemo.InfoFileGenerator (Package)", "Trarizon.Toolkit.Deemo.InfoFileGenerator\Trarizon.Toolkit.Deemo.InfoFileGenerator (Package)\Trarizon.Toolkit.Deemo.InfoFileGenerator (Package).wapproj", "{B9E50FDF-BE6A-4640-8C71-C677A05C3BB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trarizon.Toolkit.Deemo.InfoFileGenerator", "Trarizon.Toolkit.Deemo.InfoFileGenerator\Trarizon.Toolkit.Deemo.InfoFileGenerator\Trarizon.Toolkit.Deemo.InfoFileGenerator.csproj", "{0320D32E-FC7F-4027-BF22-2E79AC89944A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trarizon.Toolkit.Deemo.InfoFileGenerator", "Trarizon.Toolkit.Deemo.InfoFileGenerator\Trarizon.Toolkit.Deemo.InfoFileGenerator\Trarizon.Toolkit.Deemo.InfoFileGenerator.csproj", "{0320D32E-FC7F-4027-BF22-2E79AC89944A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,22 +102,6 @@ Global
 		{280FD48B-8915-44B2-A0CA-1F93B3EC70AC}.Release|x64.Build.0 = Release|Any CPU
 		{280FD48B-8915-44B2-A0CA-1F93B3EC70AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{280FD48B-8915-44B2-A0CA-1F93B3EC70AC}.Release|x86.Build.0 = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|x64.Build.0 = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Debug|x86.Build.0 = Debug|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|ARM64.Build.0 = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|x64.ActiveCfg = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|x64.Build.0 = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|x86.ActiveCfg = Release|Any CPU
-		{0CAF9845-E48F-40E8-9227-70015C0622C2}.Release|x86.Build.0 = Release|Any CPU
 		{B9E50FDF-BE6A-4640-8C71-C677A05C3BB7}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{B9E50FDF-BE6A-4640-8C71-C677A05C3BB7}.Debug|Any CPU.Build.0 = Debug|x64
 		{B9E50FDF-BE6A-4640-8C71-C677A05C3BB7}.Debug|Any CPU.Deploy.0 = Debug|x64
