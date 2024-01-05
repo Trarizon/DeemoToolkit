@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Trarizon.Toolkit.Deemo.InfoFileGenerator.Utilities;
 using Trarizon.Toolkit.Deemo.InfoFileGenerator.ViewModels;
 using Windows.ApplicationModel.DataTransfer;
@@ -11,10 +12,10 @@ internal sealed partial class MainWindow : Window
 {
     internal MainWindowViewModel ViewModel { get; }
 
-    private IniInfoViewModel _iniInfoViewModel;
-    private TxtInfoViewModel _txtInfoViewModel;
+    private readonly IniInfoViewModel _iniInfoViewModel;
+    private readonly TxtInfoViewModel _txtInfoViewModel;
 
-    private float _factor;
+    private readonly float _factor;
 
     private int SizeToPixel(double value)
     {
@@ -28,6 +29,39 @@ internal sealed partial class MainWindow : Window
         _iniInfoViewModel = new(ViewModel.ChartInfo);
         _txtInfoViewModel = new(ViewModel.ChartInfo);
         _factor = PInvoke.GetDpiForWindow(this) / 96f;
+
+        AppWindow.ResizeClient(new(SizeToPixel(contentGrid.ActualWidth), SizeToPixel(contentGrid.ActualHeight)));
+
+        ProjectFilesUpdate();
+    }
+
+    // WinUI 3 Bug
+    // in file: MainWindow.g.cs
+    // in method: CollectionChanged_ViewModel_ProjectFiles
+    private void ProjectFilesUpdate()
+    {
+        ViewModel.PropertyChanging += (s, e) =>
+        {
+            MainWindowViewModel vm = Unsafe.As<MainWindowViewModel>(s!);
+            if (e.PropertyName == nameof(MainWindowViewModel.ProjectFiles)) {
+                if (vm.ProjectFiles != null)
+                    vm.ProjectFiles.CollectionChanged -= ProjectFiles_CollectionChanged;
+            }
+        };
+        ViewModel.PropertyChanged += (s, e) =>
+        {
+            MainWindowViewModel vm = Unsafe.As<MainWindowViewModel>(s!);
+            if (e.PropertyName == nameof(MainWindowViewModel.ProjectFiles)) {
+                if (vm.ProjectFiles != null)
+                    vm.ProjectFiles.CollectionChanged += ProjectFiles_CollectionChanged;
+            }
+        };
+
+        void ProjectFiles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            projectFiles_ListView.ItemsSource = null;
+            projectFiles_ListView.ItemsSource = ViewModel.ProjectFiles;
+        }
     }
 
     private void ListView_DragOver(object sender, DragEventArgs e)
@@ -47,7 +81,7 @@ internal sealed partial class MainWindow : Window
                 _ => null,
             };
             if (path is not null)
-                ViewModel.ExportPath = path;
+                ViewModel.UpdateProjectFiles(path);
         }
     }
 

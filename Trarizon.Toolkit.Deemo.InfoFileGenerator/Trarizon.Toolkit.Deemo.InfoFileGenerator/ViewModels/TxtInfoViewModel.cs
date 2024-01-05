@@ -47,7 +47,7 @@ internal sealed class TxtInfoViewModel(ChartInfo info) : ObservableObject
 
     public string ExtraJsonFile
     {
-        get => info.JsonFiles[2];
+        get => info.JsonFiles[3];
         set => SetProperty(ref info.JsonFiles[3], value);
     }
 

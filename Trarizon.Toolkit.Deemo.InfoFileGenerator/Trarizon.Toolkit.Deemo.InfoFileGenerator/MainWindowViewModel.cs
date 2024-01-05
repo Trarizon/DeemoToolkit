@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Trarizon.Library.Collections.Extensions;
@@ -13,18 +14,21 @@ using Trarizon.Toolkit.Deemo.InfoFileGenerator.Utilities;
 namespace Trarizon.Toolkit.Deemo.InfoFileGenerator;
 internal partial class MainWindowViewModel : ObservableObject
 {
-    private FolderFiles? _folderFiles;
+    [ObservableProperty] FolderFiles? _projectFiles;
 
     [ObservableProperty] string _exportPath;
 
     public ChartInfo ChartInfo { get; set; } = new();
 
-    public IEnumerable<string> ProjectFiles => _folderFiles ?? Enumerable.Empty<string>();
-
     public MainWindowViewModel()
     {
         (_exportPath, ChartInfo) = Configuration.Load();
     }
+
+    #region PropertyChangedEventArgs
+    private static readonly PropertyChangedEventArgs ProjectFilesChangedArgs = new(nameof(ProjectFiles));
+
+    #endregion
 
     [RelayCommand]
     void ExportIni()
@@ -57,18 +61,19 @@ internal partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     void NormalizeFileNames()
     {
-        if (_folderFiles?.Normalize() == true)
-            OnPropertyChanged(nameof(ProjectFiles));
+        ProjectFiles?.Normalize();
     }
 
-    partial void OnExportPathChanged(string value)
+    public void UpdateProjectFiles(string directory)
     {
-        if (!Directory.Exists(value))
-            return;
-        SetProperty(ref _folderFiles, new FolderFiles(value), nameof(ProjectFiles));
+        ExportPath = directory;
+        if (!Directory.Exists(directory))
+            ProjectFiles = null;
+        else
+            ProjectFiles = new FolderFiles(directory);
     }
 
-    private class FolderFiles : IEnumerable<string>, INotifyCollectionChanged
+    public sealed class FolderFiles : IEnumerable<string>, INotifyCollectionChanged
     {
         private readonly string _dir;
 
