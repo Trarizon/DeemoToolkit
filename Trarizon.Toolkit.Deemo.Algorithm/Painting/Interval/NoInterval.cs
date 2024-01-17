@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
-internal sealed class NoInterval : IPaintingInterval
+public sealed class NoInterval : IPaintingInterval
 {
 	public static NoInterval Instance { get; } = new();
 

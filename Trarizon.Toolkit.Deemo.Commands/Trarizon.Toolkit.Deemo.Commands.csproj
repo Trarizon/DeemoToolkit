@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="Trarizon.Library" Version="1.1.0" />
+    <PackageReference Include="Trarizon.Library" Version="1.1.7" />
+    <PackageReference Include="Trarizon.TextCommand" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

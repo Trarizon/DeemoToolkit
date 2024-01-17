@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
-internal sealed class ComboInterval : IPaintingInterval
+public sealed class ComboInterval : IPaintingInterval
 {
 	private readonly int _combo;
 

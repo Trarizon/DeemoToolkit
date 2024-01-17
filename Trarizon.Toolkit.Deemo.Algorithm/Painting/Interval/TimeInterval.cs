@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 
 namespace Trarizon.Toolkit.Deemo.Algorithm.Painting.Interval;
-internal sealed class TimeInterval : IPaintingInterval
+public sealed class TimeInterval : IPaintingInterval
 {
 	public float _time;
 
