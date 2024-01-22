@@ -87,7 +87,7 @@ partial class ChartHandler
             yield return HandleChart(inputPath, chart =>
             {
                 var newChart = chart.RearrangeByPitch(fixRange);
-                File.WriteAllText(inputPath.Insert(inputPath.LastIndexOf('.'), ".rnd"), newChart.ToJson());
+                File.WriteAllText(inputPath.Insert(inputPath.LastIndexOf('.'), ".piano"), newChart.ToJson());
                 return $"Rearranged by pitch: {Path.GetFileName(inputPath)}";
             });
         }
@@ -101,7 +101,7 @@ partial class ChartHandler
             yield return HandleChart(inputPath, chart =>
             {
                 chart.ToAllClick();
-                File.WriteAllText(inputPath.Insert(inputPath.LastIndexOf('.'), ".rnd"), chart.ToJson());
+                File.WriteAllText(inputPath.Insert(inputPath.LastIndexOf('.'), ".black"), chart.ToJson());
                 return $"To all click: {Path.GetFileName(inputPath)}";
             });
         }
