@@ -12,6 +12,7 @@ partial class ChartHandler
     [Execution]
     public static partial IEnumerable<string>? Run(string input);
 
+    [Executor("img")]
     [Executor("paint")]
     private static IEnumerable<string> Paint(
         [MultiValue] string[] inputPaths,

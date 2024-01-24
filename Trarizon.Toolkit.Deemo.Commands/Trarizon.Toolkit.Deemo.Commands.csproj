@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Trarizon.Library" Version="1.1.7" />
-    <PackageReference Include="Trarizon.TextCommand" Version="0.0.1" />
+    <PackageReference Include="Trarizon.TextCommand" Version="0.0.2" />
   </ItemGroup>
 
   <ItemGroup>
