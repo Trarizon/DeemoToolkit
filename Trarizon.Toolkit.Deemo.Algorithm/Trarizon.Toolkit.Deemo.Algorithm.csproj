@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.6" />
-    <PackageReference Include="Trarizon.Library" Version="0.2.0" />
+    <PackageReference Include="Trarizon.Library" Version="0.2.2" />
   </ItemGroup>
 
   <ItemGroup>
